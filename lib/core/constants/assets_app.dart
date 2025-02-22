@@ -16,4 +16,6 @@ abstract class AssetsApp {
   static String googleIcon = "assets/icons/google_icon.png";
   static String phoneIcon = "assets/icons/phone_icon.png";
   static String nameIcon = "assets/icons/name_icon.png";
+  static String egIcon = "assets/icons/EG.png";
+  static String lrIcon = "assets/icons/LR.png";
 }

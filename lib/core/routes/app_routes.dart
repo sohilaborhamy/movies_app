@@ -8,6 +8,7 @@ import '../../modules/onboarding/view/frist_onboarding_view.dart';
 import '../../modules/onboarding/view/onboarding_scroll_view.dart';
 
 
+import '../../modules/signUp/view/signup_view.dart';
 import '../../modules/splash/view/splash_view.dart';
 import 'screens_route_name.dart';
 
@@ -29,6 +30,9 @@ abstract class AppRoutes {
       case ScreenRouteName.loginView:
         return MaterialPageRoute(
             builder: (context) => const LoginView(), settings: settings);
+             case ScreenRouteName.signUpView:
+        return MaterialPageRoute(
+            builder: (context) => const SignUpView(), settings: settings);
       case ScreenRouteName.forgetPasswordView:
         return MaterialPageRoute(
             builder: (context) => const ForgetPasswordView(),

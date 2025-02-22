@@ -39,7 +39,7 @@ class _OnboardingScrollViewState extends State<OnboardingScrollView> {
   }
 
   void _finishOnboarding() {
-    Navigator.of(context).pushReplacementNamed(ScreenRouteName.profileView);
+    Navigator.of(context).pushReplacementNamed(ScreenRouteName.loginView);
   }
 
   @override

@@ -1,5 +1,8 @@
+
 import 'package:flutter/material.dart';
+
 import '../../../core/routes/screens_route_name.dart';
+import '../../../core/services/custom_language_widget.dart';
 import '../../../core/utils/firebase_services.dart';
 import '../../../core/constants/assets_app.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -9,6 +12,7 @@ import '../../../core/services/custom_text_field.dart';
 import '../../../core/theme/colors_app.dart';
 import '../../forgetPassword/view/forget_password_view.dart';
 import '../../signUp/view/signup_view.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -19,11 +23,12 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> {
   final _formKey = GlobalKey<FormState>();
-
+ 
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
   Widget build(BuildContext context) {
+    var local = AppLocalizations.of(context)!;
     var height = MediaQuery.of(context).size.height;
     var theme = Theme.of(context);
 
@@ -51,12 +56,12 @@ class _LoginViewState extends State<LoginView> {
                     color: ColorsApp.white,
                   ),
                   onValidate: (value) {
-                      if (value == null || value.trim().isEmpty) {
-                       return "Please enter your  e-mail";
-                      }
-                     if (!Validations.validateEmail(value)) {
-                       return "please enter your a valid e-mail";
-                      }
+                    if (value == null || value.trim().isEmpty) {
+                      return "Please enter your  e-mail";
+                    }
+                    if (!Validations.validateEmail(value)) {
+                      return "please enter your a valid e-mail";
+                    }
                     return null;
                   },
                 ),
@@ -71,15 +76,15 @@ class _LoginViewState extends State<LoginView> {
                     AssetImage(AssetsApp.passwordIcon),
                     color: ColorsApp.white,
                   ),
-                     onValidate: (value) {
-                   if (value == null || value.trim().isEmpty) {
+                  onValidate: (value) {
+                    if (value == null || value.trim().isEmpty) {
                       return "Please enter your  password";
                     }
                     if (!Validations.validatePassword(value)) {
                       return "please enter your a valid password";
                     }
                     return null;
-                    },
+                  },
                 ),
                 Align(
                   alignment: Alignment.centerRight,
@@ -102,18 +107,17 @@ class _LoginViewState extends State<LoginView> {
                 ),
                 CustomButtonWidget(
                   onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                       FirebaseServices.signIn(
-                             _emailController.text, _passwordController.text)
-                        .then((value) {
-                       EasyLoading.dismiss();
-                       if (value) {
-                        Navigator.pushNamedAndRemoveUntil(context,
-                            ScreenRouteName.profileView, (route) => false);
-                      }
+                    if (_formKey.currentState!.validate()) {
+                      FirebaseServices.signIn(
+                              _emailController.text, _passwordController.text)
+                          .then((value) {
+                        EasyLoading.dismiss();
+                        if (value) {
+                          Navigator.pushNamedAndRemoveUntil(context,
+                              ScreenRouteName.profileView, (route) => false);
+                        }
+                      });
                     }
-                     );
-                     }
                   },
                   buttonText: "Login",
                 ),
@@ -179,13 +183,13 @@ class _LoginViewState extends State<LoginView> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 18),
                   child: ElevatedButton(
-                    onPressed: () {
-                      // Handle Google login
+                    onPressed: () async {
+                      await FirebaseServices.loginWithGoogle(context);
                     },
                     style: ElevatedButton.styleFrom(
                       elevation: 0,
                       backgroundColor: ColorsApp.secondColor,
-                      minimumSize: Size(double.infinity, 50),
+                      minimumSize: const Size(double.infinity, 50),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(14.0),
                       ),
@@ -193,11 +197,11 @@ class _LoginViewState extends State<LoginView> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                          Image.asset(
-                           AssetsApp.googleIcon,
-                           height: 0.03 * height,
-                          ),
-                          const SizedBox(width: 12),
+                        Image.asset(
+                          AssetsApp.googleIcon,
+                          height: 0.03 * height,
+                        ),
+                        const SizedBox(width: 12),
                         Text(
                           "Login With Google",
                           style: theme.textTheme.titleMedium?.copyWith(
@@ -209,11 +213,12 @@ class _LoginViewState extends State<LoginView> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 20),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 140),
-                  //  child: CustomContainerWidget(),
+                const SizedBox(height: 40),
+               const Padding(
+                  padding:  EdgeInsets.symmetric(horizontal: 135),
+                  child: CustomLanguageWidget(),
                 ),
+  
               ],
             ),
           ),

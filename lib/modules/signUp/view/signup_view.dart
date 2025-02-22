@@ -6,6 +6,7 @@ import '../../../core/constants/assets_app.dart';
 import '../../../core/extentions/validate.dart';
 import '../../../core/routes/screens_route_name.dart';
 import '../../../core/services/custom_button_widget.dart';
+import '../../../core/services/custom_language_widget.dart';
 import '../../../core/services/custom_text_field.dart';
 import '../../../core/theme/colors_app.dart';
 import '../../../core/utils/firebase_services.dart';
@@ -203,8 +204,8 @@ class _SignUpViewState extends State<SignUpView> {
                 ),
                 const SizedBox(height: 20),
                 const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 140),
-                 // child: CustomContainerWidget(),
+                  padding: EdgeInsets.symmetric(horizontal: 135),
+                  child: CustomLanguageWidget(),
                 ),
               ],
             ),

@@ -1,9 +1,12 @@
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
+import '../routes/screens_route_name.dart';
 import '../services/snack_bar_service.dart';
-
 
 abstract class FirebaseServices {
   static Future<bool> signUp(String emailAddress, String password) async {
@@ -32,6 +35,9 @@ abstract class FirebaseServices {
     }
   }
 
+ 
+    
+
   static Future<bool> signIn(String emailAddress, String password) async {
     EasyLoading.show();
     try {
@@ -54,4 +60,35 @@ abstract class FirebaseServices {
       return Future.value(false);
     }
   }
+
+
+
+
+ static Future<void> loginWithGoogle(BuildContext context) async {
+  try {
+    EasyLoading.show();
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+    var userCredential =
+        await FirebaseAuth.instance.signInWithCredential(credential);
+    print(userCredential.user!.uid.toString());
+
+    // Navigate to the profile screen after successful sign-in
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      ScreenRouteName.profileView,
+      (route) => false,
+    );
+  } catch (e) {
+    print("Error during Google Sign-In: $e");
+    EasyLoading.showError("Failed to sign in with Google");
+  } finally {
+    EasyLoading.dismiss();
+  }
+}
 }

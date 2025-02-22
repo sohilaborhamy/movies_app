@@ -63,6 +63,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '451988183629',
     projectId: 'my-movie-app-2025',
     storageBucket: 'my-movie-app-2025.firebasestorage.app',
+    androidClientId: '451988183629-1b04frs8ohutb0e1jjn7q03a6qf91apa.apps.googleusercontent.com',
+    iosClientId: '451988183629-rck8p4qoe623scan04ngrd2th3c3t6h2.apps.googleusercontent.com',
     iosBundleId: 'com.example.moviesApp',
   );
 
